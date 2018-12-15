@@ -127,26 +127,34 @@ extension Phantom where T: UITableView {
     }
     
     @discardableResult
-    func register<T: UITableViewCell>(nib: T.Type) -> Phantom {
-        base.registerNib(T.self)
+    func registerNib<T: UITableViewCell>(nib: T.Type) -> Phantom {
+        let nib = UINib(nibName: String(describing: T.self), bundle: nil)
+        base.register(nib, forCellReuseIdentifier: String(describing: T.self))
         return self
     }
     
     @discardableResult
     func register<T: UITableViewCell>(_: T.Type) -> Phantom {
-        base.register(T.self)
+        base.register(T.self, forCellReuseIdentifier: String(describing: T.self))
         return self
     }
     
     @discardableResult
-    func registerHF<T: UITableViewHeaderFooterView>(nib: T.Type) -> Phantom {
-        base.registerHFNib(T.self)
+    func registerHFNib<T: UITableViewHeaderFooterView>(nib: T.Type) -> Phantom {
+        let nib = UINib(nibName: String(describing: T.self), bundle: nil)
+        base.register(nib, forHeaderFooterViewReuseIdentifier: String(describing: T.self))
         return self
     }
     
     @discardableResult
     func registerHF<T: UITableViewHeaderFooterView>(_: T.Type) -> Phantom {
-        base.registerHF(T.self)
+        base.register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: T.self))
+        return self
+    }
+    
+    @discardableResult
+    func hideEmptyFooter() -> Phantom {
+        base.tableFooterView = UIView()
         return self
     }
 }
