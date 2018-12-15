@@ -3,9 +3,9 @@
 
 使用说明： 
 
-'''
+```
 let label = UIlabel().sky
      .textColor(.black)
      .text("nugelalies")
      .persona
-'''
+```
